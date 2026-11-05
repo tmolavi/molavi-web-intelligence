@@ -16,7 +16,9 @@
 
 <br/>
 
-> 🚀 **Canlı Onlayn Veb Aləti:** Pulsuz və dəqiq [Molavi Veb Kəşfiyyatı və SEO / GEO Analiz Alətini](https://molavi.pro/az/tools/web-intelligence) birbaşa [molavi.pro](https://molavi.pro/az) saytında brauzerinizdə sınaqdan keçirin.
+> 🚀 **Canlı Onlayn Veb Aləti (100% Pulsuz və Modeldən Asılı Olmayan):**  
+> Mühərriki 5 dildə birbaşa brauzerinizdə canlı sınaqdan keçirin:  
+> [🇮🇷 فارسی (Fars)](https://molavi.pro/fa/tools/web-intelligence) • [🇬🇧 English](https://molavi.pro/en/tools/web-intelligence) • [🇹🇷 Türkçe](https://molavi.pro/tr/tools/web-intelligence) • [🇦🇿 Azərbaycanca](https://molavi.pro/az/tools/web-intelligence) • [🇸🇦 العربية](https://molavi.pro/ar/tools/web-intelligence)
 
 </div>
 
@@ -225,7 +227,7 @@ docker compose up -d
 
 ---
 
-## 11. Testlər və Real Göstəricilər
+## 11. Testlər, Real Göstəricilər və İcma Telemetriyası
 
 Linux ARM64 mühitində 100 təkrar üzrə ölçülmüş real göstəricilər:
 - **HTML Ayrıştırma və Təmizləmə:** 13.10 ms orta gecikmə (76.4 əməliyyat/san, 4.7 MB yaddaş)
@@ -233,7 +235,14 @@ Linux ARM64 mühitində 100 təkrar üzrə ölçülmüş real göstəricilər:
 - **Texniki SEO Analizçisi:** 11.25 ms orta gecikmə (88.9 əməliyyat/san, 2.4 MB yaddaş)
 - **GEO və Varlıq Qrafı:** 8.56 ms orta gecikmə (116.8 əməliyyat/san, 6.4 MB yaddaş)
 
-Ətraflı məlumat: [docs/BENCHMARKS.md](docs/BENCHMARKS.md)
+### İcma Bençmark Telemetriyası və Repozitoriyə Göndəriş
+`molavi.pro` veb aləti könüllü iştirak əsasında sürət və audit nəticələrini açıq repozitori məlumat bazasına göndərir. Qeydlər [`https://molavi.pro/data/benchmark-records.json`](https://molavi.pro/data/benchmark-records.json) ünvanında saxlanılır. Bu məlumatları lokal mühitinizdə sinxronlaşdırmaq üçün:
+
+```bash
+python3 scripts/sync_benchmarks.py
+```
+
+Ətraflı məlumat və metodologiya: [docs/BENCHMARKS.md](docs/BENCHMARKS.md)
 
 ---
 

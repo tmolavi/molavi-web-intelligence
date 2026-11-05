@@ -15,7 +15,9 @@
 
 <br/>
 
-> 🚀 **Live Interactive Web Tool:** Try the free, model-free [Molavi Web Intelligence & SEO/GEO Analyzer](https://molavi.pro/tools/web-intelligence) directly in your browser on [molavi.pro](https://molavi.pro).
+> 🚀 **Live Interactive Web Analyzer (100% Free & Model-Independent):**  
+> Test the engine live in your browser across all 5 supported languages:  
+> [🇮🇷 فارسی (Persian)](https://molavi.pro/fa/tools/web-intelligence) • [🇬🇧 English](https://molavi.pro/en/tools/web-intelligence) • [🇹🇷 Türkçe](https://molavi.pro/tr/tools/web-intelligence) • [🇦🇿 Azərbaycanca](https://molavi.pro/az/tools/web-intelligence) • [🇸🇦 العربية](https://molavi.pro/ar/tools/web-intelligence)
 
 </div>
 
@@ -248,7 +250,7 @@ MWIE includes strict built-in security features:
 
 ---
 
-## 11. Empirical Benchmarks
+## 11. Empirical Benchmarks & Live Telemetry
 
 Empirical measurements on Linux ARM64 (100 iterations per component):
 - **HTML Parsing & Noise Cleaning:** 13.10 ms avg latency (76.4 ops/sec, ~4.7 MB peak RAM)
@@ -256,7 +258,14 @@ Empirical measurements on Linux ARM64 (100 iterations per component):
 - **Technical SEO Analyzer:** 11.25 ms avg latency (88.9 ops/sec, ~2.4 MB peak RAM)
 - **GEO & Entity Graph Engine:** 8.56 ms avg latency (116.8 ops/sec, ~6.4 MB peak RAM)
 
-See [docs/BENCHMARKS.md](docs/BENCHMARKS.md) for full reproducible details.
+### Community Benchmark Telemetry
+The free web tool on `molavi.pro` provides an opt-in benchmark contribution mechanism where speed and audit scores are recorded to [`https://molavi.pro/data/benchmark-records.json`](https://molavi.pro/data/benchmark-records.json). You can sync and verify live community runs locally:
+
+```bash
+python3 scripts/sync_benchmarks.py
+```
+
+See [docs/BENCHMARKS.md](docs/BENCHMARKS.md) for full reproducible benchmarks and methodology.
 
 ---
 

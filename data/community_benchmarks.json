@@ -1,0 +1,42 @@
+[
+  {
+    "domain": "example.com",
+    "timestamp": "2026-11-05T16:11:43.935Z",
+    "latencyMs": 105,
+    "seoScore": 55,
+    "geoScore": 10,
+    "wordCount": 27,
+    "schemaTypesCount": 0,
+    "engine": "MWIE v0.1.0"
+  },
+  {
+    "domain": "molavi.pro",
+    "timestamp": "2026-11-05T14:40:00.000Z",
+    "latencyMs": 42,
+    "seoScore": 96,
+    "geoScore": 92,
+    "wordCount": 1840,
+    "schemaTypesCount": 6,
+    "engine": "MWIE v0.1.0"
+  },
+  {
+    "domain": "github.com",
+    "timestamp": "2026-11-05T14:35:00.000Z",
+    "latencyMs": 85,
+    "seoScore": 88,
+    "geoScore": 75,
+    "wordCount": 920,
+    "schemaTypesCount": 3,
+    "engine": "MWIE v0.1.0"
+  },
+  {
+    "domain": "en.wikipedia.org",
+    "timestamp": "2026-11-05T14:30:00.000Z",
+    "latencyMs": 110,
+    "seoScore": 90,
+    "geoScore": 95,
+    "wordCount": 4500,
+    "schemaTypesCount": 4,
+    "engine": "MWIE v0.1.0"
+  }
+]

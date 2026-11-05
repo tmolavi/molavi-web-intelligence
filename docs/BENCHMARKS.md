@@ -45,3 +45,19 @@ cd molavi-web-intelligence
 python3 -m pip install -e ".[dev]"
 python3 scripts/run_benchmarks.py
 ```
+
+---
+
+## 5. Live Community Benchmark Feed & Telemetry Pipeline
+
+The free web analyzer hosted on `molavi.pro` provides an opt-in telemetry feature where users voluntarily contribute speed, SEO, and GEO score records to the open benchmark dataset.
+
+- **Public Telemetry Feed:** [`https://molavi.pro/data/benchmark-records.json`](https://molavi.pro/data/benchmark-records.json)
+- **Privacy & Safety:** Zero sensitive user data or body text is stored. Only the parsed domain, latency in milliseconds, SEO score, GEO score, clean word count, and timestamp are captured.
+- **Syncing Live Benchmarks to the Repo:**
+
+```bash
+# Fetch and synchronize live community telemetry into data/community_benchmarks.json
+python3 scripts/sync_benchmarks.py
+```
+

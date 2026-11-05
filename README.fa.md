@@ -18,7 +18,9 @@
 
 <br/>
 
-> 🚀 **ابزار آنلاین و زنده در وب‌سایت:** از [ابزار رایگان و قطعی هوشمندی وب و تحلیل سئو و GEO](https://molavi.pro/fa/tools/web-intelligence) به صورت مستقیم در مرورگر خود روی [مولوی پرو (molavi.pro)](https://molavi.pro/fa) استفاده کنید.
+> 🚀 **ابزار آنلاین، زنده و ۱۰۰٪ رایگان (بدون نیاز به مدل):**  
+> این ابزار را می‌توانید مستقیماً در مرورگر خود در هر ۵ زبان آزمایش کنید:  
+> [🇮🇷 فارسی](https://molavi.pro/fa/tools/web-intelligence) • [🇬🇧 English](https://molavi.pro/en/tools/web-intelligence) • [🇹🇷 Türkçe](https://molavi.pro/tr/tools/web-intelligence) • [🇦🇿 Azərbaycanca](https://molavi.pro/az/tools/web-intelligence) • [🇸🇦 العربية](https://molavi.pro/ar/tools/web-intelligence)
 
 </div>
 
@@ -227,7 +229,7 @@ docker compose up -d
 
 ---
 
-## ۱۱. بنچمارک‌های تجربی و عملکردی
+## ۱۱. بنچمارک‌های تجربی و تله‌متری جامعه کاربری
 
 آزمایش‌های تجربی روی پردازنده لینوکس ARM64 با ۱۰۰ تکرار در هر بخش:
 - **پارس و تمیزکاری HTML:** میانگین ۱۳.۱۰ میلی‌ثانیه (۷۶.۴ عملیات در ثانیه، ۴.۷ مگابایت رم)
@@ -235,7 +237,14 @@ docker compose up -d
 - **ارزیابی سئوی تکنیکال:** میانگین ۱۱.۲۵ میلی‌ثانیه (۸۸.۹ عملیات در ثانیه، ۲.۴ مگابایت رم)
 - **تحلیل موجودیت‌ها و GEO:** میانگین ۸.۵۶ میلی‌ثانیه (۱۱۶.۸ عملیات در ثانیه، ۶.۴ مگابایت رم)
 
-گزارش کامل در [docs/BENCHMARKS.md](docs/BENCHMARKS.md) در دسترس است.
+### تله‌متری و ارسال نتایج بنچمارک به ریپازیتوری
+ابزار وب رایگان در سایت `molavi.pro` دارای قابلیت مشارکت داوطلبانه در بنچمارک است. با فعال بودن این گزینه، داده‌های سرعت (Latency) و امتیازات سئو/GEO در اندپوینت عمومی [`https://molavi.pro/data/benchmark-records.json`](https://molavi.pro/data/benchmark-records.json) ثبت می‌شوند (بدون ذخیره هیچ‌گونه محتوای حساس). شما می‌توانید در محیط محلی یا CI نتایج زنده را همگام‌سازی و اعتبارسنجی کنید:
+
+```bash
+python3 scripts/sync_benchmarks.py
+```
+
+گزارش و متدولوژی کامل در [docs/BENCHMARKS.md](docs/BENCHMARKS.md) در دسترس است.
 
 ---
 

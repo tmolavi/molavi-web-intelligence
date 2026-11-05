@@ -18,7 +18,9 @@
 
 <br/>
 
-> 🚀 **أداة الويب الحية والتفاعلية:** جرّب [أداة ذكاء الويب وفحص السيو والـ GEO المجانية](https://molavi.pro/ar/tools/web-intelligence) مباشرة عبر متصفحك على [مولوي برو (molavi.pro)](https://molavi.pro/ar).
+> 🚀 **أداة الويب الحية والتفاعلية (مجانية ١٠٠٪ وبدون الحاجة لنماذج):**  
+> جرّب المحرك مباشرة عبر متصفحك بجميع اللغات الـ ٥ المدعومة:  
+> [🇮🇷 فارسی (الفارسية)](https://molavi.pro/fa/tools/web-intelligence) • [🇬🇧 English](https://molavi.pro/en/tools/web-intelligence) • [🇹🇷 Türkçe](https://molavi.pro/tr/tools/web-intelligence) • [🇦🇿 Azərbaycanca](https://molavi.pro/az/tools/web-intelligence) • [🇸🇦 العربية](https://molavi.pro/ar/tools/web-intelligence)
 
 </div>
 
@@ -227,7 +229,7 @@ docker compose up -d
 
 ---
 
-## ١١. القياسات المعيارية والأداء التجريبي
+## ١١. القياسات المعيارية وتدفق بيانات المجتمع التجريبي
 
 نتائج تجريبية حقيقية تم قياسها على معالج لينكس ARM64 بعد ١٠٠ تكرار:
 - **تحليل وتنقية كود HTML:** متوسط زمن الاستجابة ١٣.١٠ مللي ثانية (٧٦.٤ عملية/ثانية، ٤.٧ ميغابايت ذاكرة)
@@ -235,7 +237,14 @@ docker compose up -d
 - **محرك السيو التقني:** متوسط زمن الاستجابة ١١.٢٥ مللي ثانية (٨٨.٩ عملية/ثانية، ٢.٤ ميغابايت ذاكرة)
 - **محرك الكيانات والـ GEO:** متوسط زمن الاستجابة ٨.٥٦ مللي ثانية (١١٦.٨ عملية/ثانية، ٦.٤ ميغابايت ذاكرة)
 
-التقرير الكامل متاح في [docs/BENCHMARKS.md](docs/BENCHMARKS.md).
+### تدفق بيانات القياسات المجتمعية للمستودع
+تتضمن أداة الويب المجانية على موقع `molavi.pro` خيار المشاركة التطوعية في القياسات المعيارية، حيث يتم تسجيل زمن الاستجابة وتقييمات الـ SEO والـ GEO بشكل مفتوح في الرابط [`https://molavi.pro/data/benchmark-records.json`](https://molavi.pro/data/benchmark-records.json) (دون حفظ أي بيانات حساسة). يمكنك مزامنة هذه البيانات محلياً عبر:
+
+```bash
+python3 scripts/sync_benchmarks.py
+```
+
+التقرير والمنهجية الكاملة في [docs/BENCHMARKS.md](docs/BENCHMARKS.md).
 
 ---
 

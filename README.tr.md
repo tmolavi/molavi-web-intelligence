@@ -16,7 +16,9 @@
 
 <br/>
 
-> 🚀 **Canlı Çevrimiçi Web Aracı:** Ücretsiz ve kararlı [Molavi Web İstihbaratı ve SEO / GEO Analiz Aracını](https://molavi.pro/tr/tools/web-intelligence) doğrudan [molavi.pro](https://molavi.pro/tr) üzerinde tarayıcınızda deneyin.
+> 🚀 **Canlı Çevrimiçi Web Aracı (%100 Ücretsiz ve Model Bağımsız):**  
+> Motoru 5 desteklenen dilde doğrudan tarayıcınızda canlı olarak test edin:  
+> [🇮🇷 فارسی (Farsça)](https://molavi.pro/fa/tools/web-intelligence) • [🇬🇧 English](https://molavi.pro/en/tools/web-intelligence) • [🇹🇷 Türkçe](https://molavi.pro/tr/tools/web-intelligence) • [🇦🇿 Azərbaycanca](https://molavi.pro/az/tools/web-intelligence) • [🇸🇦 العربية](https://molavi.pro/ar/tools/web-intelligence)
 
 </div>
 
@@ -225,7 +227,7 @@ docker compose up -d
 
 ---
 
-## 11. Performans ve Kıyaslama (Benchmark)
+## 11. Performans, Benchmark ve Canlı Telemetri
 
 Linux ARM64 üzerinde bileşen başına 100 yinelemeli gerçek ölçümler:
 - **HTML Ayrıştırma ve Temizleme:** 13.10 ms ortalama gecikme (76.4 işlem/sn, 4.7 MB bellek)
@@ -233,7 +235,14 @@ Linux ARM64 üzerinde bileşen başına 100 yinelemeli gerçek ölçümler:
 - **Teknik SEO Analizcisi:** 11.25 ms ortalama gecikme (88.9 işlem/sn, 2.4 MB bellek)
 - **GEO ve Varlık Grafiği:** 8.56 ms ortalama gecikme (116.8 işlem/sn, 6.4 MB bellek)
 
-Ayrıntılı rapor için: [docs/BENCHMARKS.md](docs/BENCHMARKS.md)
+### Topluluk Benchmark Telemetrisi ve Depoya Aktarım
+`molavi.pro` üzerindeki ücretsiz analiz aracı, kullanıcıların hız ve analiz skorlarını açık kıyaslama veri kümesine gönüllü olarak aktarabileceği bir telemetri hattına sahiptir. Kayıtlar [`https://molavi.pro/data/benchmark-records.json`](https://molavi.pro/data/benchmark-records.json) adresinde şeffaf olarak tutulur. Bu canlı verileri yerel ortamda senkronize etmek için:
+
+```bash
+python3 scripts/sync_benchmarks.py
+```
+
+Ayrıntılı metodoloji ve tekrarlanabilir rapor: [docs/BENCHMARKS.md](docs/BENCHMARKS.md)
 
 ---
 
