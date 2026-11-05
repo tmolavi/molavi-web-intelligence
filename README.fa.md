@@ -16,6 +16,10 @@
 
 **[English](README.md) | [فارسی](README.fa.md) | [Türkçe](README.tr.md) | [Azərbaycan](README.az.md) | [العربية](README.ar.md)**
 
+<br/>
+
+> 🚀 **ابزار آنلاین و زنده در وب‌سایت:** از [ابزار رایگان و قطعی هوشمندی وب و تحلیل سئو و GEO](https://molavi.pro/fa/tools/web-intelligence) به صورت مستقیم در مرورگر خود روی [مولوی پرو (molavi.pro)](https://molavi.pro/fa) استفاده کنید.
+
 </div>
 
 ---

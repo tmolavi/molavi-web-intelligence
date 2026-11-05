@@ -16,6 +16,10 @@
 
 **[English](README.md) | [فارسی](README.fa.md) | [Türkçe](README.tr.md) | [Azərbaycan](README.az.md) | [العربية](README.ar.md)**
 
+<br/>
+
+> 🚀 **أداة الويب الحية والتفاعلية:** جرّب [أداة ذكاء الويب وفحص السيو والـ GEO المجانية](https://molavi.pro/ar/tools/web-intelligence) مباشرة عبر متصفحك على [مولوي برو (molavi.pro)](https://molavi.pro/ar).
+
 </div>
 
 ---

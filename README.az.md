@@ -14,6 +14,10 @@
 
 **[English](README.md) | [فارسی](README.fa.md) | [Türkçe](README.tr.md) | [Azərbaycan](README.az.md) | [العربية](README.ar.md)**
 
+<br/>
+
+> 🚀 **Canlı Onlayn Veb Aləti:** Pulsuz və dəqiq [Molavi Veb Kəşfiyyatı və SEO / GEO Analiz Alətini](https://molavi.pro/az/tools/web-intelligence) birbaşa [molavi.pro](https://molavi.pro/az) saytında brauzerinizdə sınaqdan keçirin.
+
 </div>
 
 ---

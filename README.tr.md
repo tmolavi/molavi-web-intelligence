@@ -14,6 +14,10 @@
 
 **[English](README.md) | [فارسی](README.fa.md) | [Türkçe](README.tr.md) | [Azərbaycan](README.az.md) | [العربية](README.ar.md)**
 
+<br/>
+
+> 🚀 **Canlı Çevrimiçi Web Aracı:** Ücretsiz ve kararlı [Molavi Web İstihbaratı ve SEO / GEO Analiz Aracını](https://molavi.pro/tr/tools/web-intelligence) doğrudan [molavi.pro](https://molavi.pro/tr) üzerinde tarayıcınızda deneyin.
+
 </div>
 
 ---

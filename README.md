@@ -13,6 +13,10 @@
 
 **[English](README.md) | [فارسی](README.fa.md) | [Türkçe](README.tr.md) | [Azərbaycan](README.az.md) | [العربية](README.ar.md)**
 
+<br/>
+
+> 🚀 **Live Interactive Web Tool:** Try the free, model-free [Molavi Web Intelligence & SEO/GEO Analyzer](https://molavi.pro/tools/web-intelligence) directly in your browser on [molavi.pro](https://molavi.pro).
+
 </div>
 
 ---
