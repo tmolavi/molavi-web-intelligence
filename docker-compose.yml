@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  mwie:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mwie-engine
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - MWIE_HOST=0.0.0.0
+      - MWIE_PORT=8000
+      - MWIE_CACHE_ENABLED=true
+      - MWIE_CACHE_TTL=3600
+      - MWIE_RESPECT_ROBOTS=true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
