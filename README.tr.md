@@ -20,6 +20,12 @@
 > Motoru 5 desteklenen dilde doğrudan tarayıcınızda canlı olarak test edin:  
 > [🇮🇷 فارسی (Farsça)](https://molavi.pro/fa/tools/web-intelligence) • [🇬🇧 English](https://molavi.pro/en/tools/web-intelligence) • [🇹🇷 Türkçe](https://molavi.pro/tr/tools/web-intelligence) • [🇦🇿 Azərbaycanca](https://molavi.pro/az/tools/web-intelligence) • [🇸🇦 العربية](https://molavi.pro/ar/tools/web-intelligence)
 
+<br/>
+
+[![Molavi Web Intelligence Motoru Tanıtım Videosu](docs/assets/poster.jpg)](https://molavi.pro/videos/web-intelligence/explainer.mp4)
+
+*🎬 Görsel Mimari & Video Tanıtımı — [Yüksek Çözünürlüklü İzle](https://molavi.pro/videos/web-intelligence/explainer.mp4) veya depoda: [`docs/assets/mwie-explainer.mp4`](docs/assets/mwie-explainer.mp4)*
+
 </div>
 
 ---

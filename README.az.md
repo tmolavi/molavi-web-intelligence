@@ -20,6 +20,12 @@
 > Mühərriki 5 dildə birbaşa brauzerinizdə canlı sınaqdan keçirin:  
 > [🇮🇷 فارسی (Fars)](https://molavi.pro/fa/tools/web-intelligence) • [🇬🇧 English](https://molavi.pro/en/tools/web-intelligence) • [🇹🇷 Türkçe](https://molavi.pro/tr/tools/web-intelligence) • [🇦🇿 Azərbaycanca](https://molavi.pro/az/tools/web-intelligence) • [🇸🇦 العربية](https://molavi.pro/ar/tools/web-intelligence)
 
+<br/>
+
+[![Molavi Web Intelligence Mühərriki İzah Videosu](docs/assets/poster.jpg)](https://molavi.pro/videos/web-intelligence/explainer.mp4)
+
+*🎬 Vizual Memarlıq və Video İzahı — [Yüksək Keyfiyyətdə İzlə](https://molavi.pro/videos/web-intelligence/explainer.mp4) və ya depoda: [`docs/assets/mwie-explainer.mp4`](docs/assets/mwie-explainer.mp4)*
+
 </div>
 
 ---

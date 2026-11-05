@@ -22,6 +22,12 @@
 > جرّب المحرك مباشرة عبر متصفحك بجميع اللغات الـ ٥ المدعومة:  
 > [🇮🇷 فارسی (الفارسية)](https://molavi.pro/fa/tools/web-intelligence) • [🇬🇧 English](https://molavi.pro/en/tools/web-intelligence) • [🇹🇷 Türkçe](https://molavi.pro/tr/tools/web-intelligence) • [🇦🇿 Azərbaycanca](https://molavi.pro/az/tools/web-intelligence) • [🇸🇦 العربية](https://molavi.pro/ar/tools/web-intelligence)
 
+<br/>
+
+[![فيديو توضيحي لمحرك ذكاء الويب مولوي](docs/assets/poster.jpg)](https://molavi.pro/videos/web-intelligence/explainer.mp4)
+
+*🎬 معمارية بصرية وفيديو توضيحي — [شاهد الفيديو بجودة عالية](https://molavi.pro/videos/web-intelligence/explainer.mp4) أو داخل المستودع: [`docs/assets/mwie-explainer.mp4`](docs/assets/mwie-explainer.mp4)*
+
 </div>
 
 ---

@@ -22,6 +22,12 @@
 > این ابزار را می‌توانید مستقیماً در مرورگر خود در هر ۵ زبان آزمایش کنید:  
 > [🇮🇷 فارسی](https://molavi.pro/fa/tools/web-intelligence) • [🇬🇧 English](https://molavi.pro/en/tools/web-intelligence) • [🇹🇷 Türkçe](https://molavi.pro/tr/tools/web-intelligence) • [🇦🇿 Azərbaycanca](https://molavi.pro/az/tools/web-intelligence) • [🇸🇦 العربية](https://molavi.pro/ar/tools/web-intelligence)
 
+<br/>
+
+[![ویدیوی معماری و راهنمای موتور هوشمندی وب مولوی](docs/assets/poster.jpg)](https://molavi.pro/videos/web-intelligence/explainer.mp4)
+
+*🎬 پویانمایی و معرفی بصری موتور — [تماشای ویدیو با کیفیت بالا](https://molavi.pro/videos/web-intelligence/explainer.mp4) یا در ریپازیتوری: [`docs/assets/mwie-explainer.mp4`](docs/assets/mwie-explainer.mp4)*
+
 </div>
 
 ---
