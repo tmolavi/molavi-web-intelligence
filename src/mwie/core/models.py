@@ -54,6 +54,19 @@ class LinkItem(BaseModel):
     rel: str | None = None
 
 
+class SchemaGapReport(BaseModel):
+    is_healthy: bool = False
+    needs_healing: bool = True
+    has_unified_graph: bool = False
+    has_anchored_person: bool = False
+    has_authoritative_same_as: bool = False
+    has_in_language: bool = False
+    has_valid_organization: bool = False
+    has_valid_website: bool = False
+    detected_gaps: list[str] = Field(default_factory=list)
+    discovered_same_as: list[str] = Field(default_factory=list)
+
+
 class TechnicalSEOReport(BaseModel):
     url: str
     status_code: int
@@ -80,6 +93,8 @@ class TechnicalSEOReport(BaseModel):
     content_to_html_ratio: float = 0.0
     seo_score: int = Field(default=100, ge=0, le=100)
     recommendations: list[str] = Field(default_factory=list)
+    schema_gaps: SchemaGapReport | None = None
+    healed_schema: str | None = None
 
 
 SEOReport = TechnicalSEOReport
@@ -148,6 +163,8 @@ class ExtractionResult(BaseModel):
     markdown: str = ""
     seo: TechnicalSEOReport | None = None
     geo: GEOReport | None = None
+    schema_gaps: SchemaGapReport | None = None
+    healed_schema: str | None = None
     metadata: ExtractionMetadata
 
 

@@ -8,6 +8,7 @@ from typing import Any
 
 from mwie.core.models import TechnicalSEOReport
 from mwie.parsing.html_parser import HTMLParser
+from mwie.seo.schema_healer import SchemaHealer
 
 
 class SEOAnalyzer:
@@ -168,6 +169,12 @@ class SEOAnalyzer:
 
         score = max(0, min(100, score))
 
+        healer = SchemaHealer(raw_html=self.raw_html, url=self.url)
+        schema_gaps, healed_schema = healer.heal()
+        for gap in schema_gaps.detected_gaps:
+            if gap not in recommendations:
+                recommendations.append(gap)
+
         return TechnicalSEOReport(
             url=self.url,
             status_code=self.status_code,
@@ -194,4 +201,6 @@ class SEOAnalyzer:
             content_to_html_ratio=content_ratio,
             seo_score=score,
             recommendations=recommendations,
+            schema_gaps=schema_gaps,
+            healed_schema=healed_schema,
         )

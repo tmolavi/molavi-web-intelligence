@@ -110,6 +110,8 @@ async def extract_structured_data(url: str) -> str:
             "has_json_ld": res.seo.has_json_ld,
             "structured_data_types": res.seo.structured_data_types,
             "schemas": res.seo.json_ld_schemas,
+            "schema_gaps": res.seo.schema_gaps.model_dump() if res.seo.schema_gaps else None,
+            "healed_schema": res.healed_schema or res.seo.healed_schema,
         },
         indent=2,
     )

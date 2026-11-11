@@ -21,6 +21,7 @@ from mwie.geo.analyzer import GEOAnalyzer
 from mwie.parsing.html_parser import HTMLParser
 from mwie.parsing.markdown_generator import MarkdownGenerator
 from mwie.seo.analyzer import SEOAnalyzer
+from mwie.seo.schema_healer import SchemaHealer
 
 
 class CrawlEngine:
@@ -74,6 +75,18 @@ class CrawlEngine:
             )
             geo_report = geo_analyzer.analyze()
 
+        # 6. Automated Schema Healer
+        healer = SchemaHealer(
+            raw_html=raw.html,
+            url=raw.final_url,
+            seo_report=seo_report,
+            geo_report=geo_report,
+        )
+        schema_gaps, healed_schema = healer.heal()
+        if seo_report is not None:
+            seo_report.schema_gaps = schema_gaps
+            seo_report.healed_schema = healed_schema
+
         metadata = ExtractionMetadata(
             adapter_used=raw.adapter_name,
             execution_time_ms=raw.execution_time_ms,
@@ -93,6 +106,8 @@ class CrawlEngine:
             markdown=markdown,
             seo=seo_report,
             geo=geo_report,
+            schema_gaps=schema_gaps,
+            healed_schema=healed_schema,
             metadata=metadata,
         )
 
