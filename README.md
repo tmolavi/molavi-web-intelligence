@@ -287,4 +287,4 @@ See [docs/BENCHMARKS.md](docs/BENCHMARKS.md) for full reproducible benchmarks an
 
 **Author:** Taqi Molavi  
 **Website:** [https://molavi.pro](https://molavi.pro)  
-**Ecosystem Integrations:** [Hermes Agent](integrations/hermes/) | [Hamzad Digital Twins](integrations/hamzad/)
+**Ecosystem Integrations:** [TM Molavi Agentic OS](https://github.com/tmolavi/molavi-agentic-os) | [TM Second Brain](https://github.com/tmolavi/tm-second-brain) | [Hermes Agent](integrations/hermes/) | [Hamzad Digital Twins](integrations/hamzad/)
