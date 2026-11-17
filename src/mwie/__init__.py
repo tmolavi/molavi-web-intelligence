@@ -9,7 +9,9 @@ __version__ = "0.1.0"
 __author__ = "Taqi Molavi"
 __license__ = "Apache-2.0"
 
+from mwie.citations.citation_evidence_probe import CitationEvidenceProbe
 from mwie.core.models import (
+    CitationEvidenceReport,
     CrawlRequest,
     CrawlResult,
     ExtractionResult,
@@ -18,6 +20,8 @@ from mwie.core.models import (
 )
 
 __all__ = [
+    "CitationEvidenceProbe",
+    "CitationEvidenceReport",
     "CrawlRequest",
     "CrawlResult",
     "ExtractionResult",

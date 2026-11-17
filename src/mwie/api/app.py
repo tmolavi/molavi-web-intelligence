@@ -9,6 +9,7 @@ from pydantic import BaseModel
 from mwie import __version__
 from mwie.core.models import (
     AdapterStats,
+    CitationEvidenceReport,
     CrawlRequest,
     CrawlResult,
     ExtractionOptions,
@@ -103,6 +104,19 @@ async def analyze_geo(req: ExtractRequest):
         if not res.geo:
             raise HTTPException(status_code=500, detail="GEO analysis failed to produce report.")
         return res.geo
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@app.post("/api/v1/citation-evidence", response_model=CitationEvidenceReport, tags=["Citations"])
+async def analyze_citation_evidence(req: ExtractRequest):
+    try:
+        res = await crawl_engine.extract_single(req.url, req.options)
+        if not res.evidence_citability:
+            raise HTTPException(status_code=500, detail="Citation evidence analysis failed to produce report.")
+        return res.evidence_citability
     except HTTPException:
         raise
     except Exception as e:

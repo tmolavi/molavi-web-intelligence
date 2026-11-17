@@ -7,6 +7,7 @@ import time
 from urllib.parse import urlparse
 
 from mwie.core.cache import cache
+from mwie.citations.citation_evidence_probe import CitationEvidenceProbe
 from mwie.core.models import (
     CrawlRequest,
     CrawlResult,
@@ -87,6 +88,15 @@ class CrawlEngine:
             seo_report.schema_gaps = schema_gaps
             seo_report.healed_schema = healed_schema
 
+        # 7. Citation Evidence, Quote Density & Offer Transparency Probe
+        citation_probe = CitationEvidenceProbe(
+            raw_html=raw.html,
+            clean_text=clean_text,
+            url=raw.final_url,
+            status_code=raw.status_code,
+        )
+        evidence_citability = citation_probe.analyze()
+
         metadata = ExtractionMetadata(
             adapter_used=raw.adapter_name,
             execution_time_ms=raw.execution_time_ms,
@@ -108,6 +118,7 @@ class CrawlEngine:
             geo=geo_report,
             schema_gaps=schema_gaps,
             healed_schema=healed_schema,
+            evidence_citability=evidence_citability,
             metadata=metadata,
         )
 

@@ -130,6 +130,40 @@ class QAItem(BaseModel):
     answer: str
 
 
+class ExpertQuoteItem(BaseModel):
+    quote: str
+    author: str | None = None
+    source: str | None = None
+    element_type: str = "blockquote"
+
+
+class StatisticalClaimItem(BaseModel):
+    claim_text: str
+    claim_type: str
+    source_url: str | None = None
+
+
+class OfferTransparencyReport(BaseModel):
+    is_commercial_url: bool = False
+    has_pricing_table: bool = False
+    has_structured_deliverables: bool = False
+    detected_currencies: list[str] = Field(default_factory=list)
+    deliverables_count: int = 0
+    transparency_score: int = 100
+
+
+class CitationEvidenceReport(BaseModel):
+    evidence_citability_score: int = Field(default=100, ge=0, le=100)
+    expert_quotes_count: int = 0
+    expert_quotes: list[ExpertQuoteItem] = Field(default_factory=list)
+    statistical_claims_count: int = 0
+    statistical_claims: list[StatisticalClaimItem] = Field(default_factory=list)
+    research_links_count: int = 0
+    research_domains: list[str] = Field(default_factory=list)
+    offer_transparency: OfferTransparencyReport = Field(default_factory=OfferTransparencyReport)
+    remediation_tips: list[str] = Field(default_factory=list)
+
+
 class GEOReport(BaseModel):
     url: str
     primary_brand: str | None = None
@@ -165,6 +199,7 @@ class ExtractionResult(BaseModel):
     geo: GEOReport | None = None
     schema_gaps: SchemaGapReport | None = None
     healed_schema: str | None = None
+    evidence_citability: CitationEvidenceReport | None = None
     metadata: ExtractionMetadata
 
 

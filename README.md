@@ -86,7 +86,67 @@ Generative Engine Optimization (GEO) prepares content for generative discovery:
 
 ---
 
-## 5. Architecture Overview
+## 5. Citation Evidence, Quote Density & Offer Transparency Probe
+
+The **Citation Evidence & Offer Transparency Probe** (`mwie.citations.citation_evidence_probe`) audits whether a web page contains authoritative grounding for Generative AI engines and transparent commercial offerings:
+
+- **Attributed Expert Quotations:** Parses `<blockquote>`, `<q>`, and natural-language quotation patterns to count expert quotes and author/source attributions.
+- **Verifiable Statistical Claims & Empirical Grounding:** Detects precise percentages (`84.5%`), year-stamped figures/benchmarks (`in 2024`, `by 2026`), and outbound citations to primary research domains (`.edu`, `.org`, `arxiv.org`, `doi.org`, `nih.gov`, `nature.com`, `ieee.org`).
+- **Commercial Offer Transparency:** For commercial and service pages, detects explicit pricing tables, currency disclosures (`$`, `€`, `₺`, `تومان`, `USD`, `EUR`, `TRY`), structured deliverables (checkmarked features, scope definitions), and SLA commitments.
+- **Citability Scorecard & Remediation:** Produces an objective `evidence_citability_score` (0–100) and up to 3 prioritized remediation tips.
+
+### Sample JSON Output (`evidence_citability`)
+```json
+{
+  "evidence_citability": {
+    "evidence_citability_score": 88,
+    "expert_quotes_count": 2,
+    "expert_quotes": [
+      {
+        "quote": "Generative Search Optimization requires verifiable citation density and grounded empirical evidence.",
+        "author": "Dr. Alex Smith",
+        "source": "https://arxiv.org/abs/2301.00000",
+        "element_type": "blockquote"
+      }
+    ],
+    "statistical_claims_count": 3,
+    "statistical_claims": [
+      {
+        "claim_text": "organic AI citation traffic increased by 84.5% across global brands",
+        "claim_type": "percentage",
+        "source_url": null
+      },
+      {
+        "claim_text": "Primary research/authority citation (stanford.edu): Stanford AI Lab",
+        "claim_type": "research_citation",
+        "source_url": "https://stanford.edu/research/ai-search"
+      }
+    ],
+    "research_links_count": 2,
+    "research_domains": ["stanford.edu", "arxiv.org"],
+    "offer_transparency": {
+      "is_commercial_url": true,
+      "has_pricing_table": true,
+      "has_structured_deliverables": true,
+      "detected_currencies": ["$", "USD"],
+      "deliverables_count": 3,
+      "transparency_score": 100
+    },
+    "remediation_tips": [
+      "Embed attributed expert quotes (`<blockquote>`, `<q>`, or author citations) to elevate domain authority.",
+      "Incorporate verifiable statistical claims, date-stamped figures, and primary research links (.edu, .org, arXiv, DOI)."
+    ]
+  }
+}
+```
+
+> 🌐 **Interactive Production Tool & Consulting Ecosystem:**  
+> - Run live web intelligence audits: [https://molavi.pro/tools/web-intelligence](https://molavi.pro/tools/web-intelligence)  
+> - Enterprise GEO & AI Search Consulting: [https://inten.asia](https://inten.asia)
+
+---
+
+## 6. Architecture Overview
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
