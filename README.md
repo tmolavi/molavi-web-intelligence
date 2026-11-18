@@ -146,7 +146,76 @@ The **Citation Evidence & Offer Transparency Probe** (`mwie.citations.citation_e
 
 ---
 
-## 6. Architecture Overview
+## 6. Multi-Engine Shortlist & Branded-Query Defense Probe
+
+The **Multi-Engine Shortlist & Branded-Query Defense Probe** (`mwie.engines.multi_engine_probe`) analyzes content against empirical findings across the three major AI engines:
+
+- **ChatGPT (`GPT-5.6`) Readiness (0–100):**
+  - **Entity Graph Stability:** Validates Schema.org `@graph` networks (`Organization`, `Person`, `Brand`, `Product`, `Service`).
+  - **`sameAs` Disambiguation:** Checks presence of verified profile links across Wikidata, Wikipedia, LinkedIn, GitHub, and Crunchbase.
+  - **Structured Brand/Product Facts:** Evaluates key product attributes, `<dl>` definition lists, structured pricing tables, and schema offers.
+- **Google AI Mode Readiness (0–100):**
+  - **Conversational 3x-Long Query Coverage:** Audits H2/H3 question headings and FAQPage schemas against conversational search queries in 5 languages (`en`, `fa`, `ar`, `tr`, `az`).
+  - **Top-30% Answer Clarity:** Detects concise, self-contained definitional answer blocks in the opening 30% of content.
+  - **Branded Entity Defense:** Checks canonical domain alignment, brand anchor in title & H1, preventing AI Overviews from prioritizing scrapers or competitor aggregators for branded searches.
+- **Perplexity Readiness (0–100):**
+  - **Statistical & Numeric Density:** Audits high-density verifiable claims (percentages, year-stamped milestones, comparative metrics).
+  - **Outbound Primary Citations:** Verifies references to academic papers, open standards, and primary research (`.edu`, `.gov`, `arxiv.org`, `doi.org`, `w3.org`).
+  - **Quote Extractability:** Detects attributed `<blockquote>`, `<q>`, and self-contained 134–167 word semantic blocks.
+- **Branded Defense Status:** Determines whether the brand's entity narrative is securely controlled (`defended`, `adequate`, `vulnerable`).
+
+### Sample JSON Output (`engine_matrix`)
+```json
+{
+  "engine_matrix": {
+    "chatgpt_score": 92,
+    "google_ai_mode_score": 88,
+    "perplexity_score": 95,
+    "branded_defense_status": "defended",
+    "chatgpt_breakdown": {
+      "has_brand_schema": true,
+      "has_graph_network": true,
+      "same_as_count": 3,
+      "disambiguation_profiles": [
+        "https://www.wikidata.org/wiki/Q123456",
+        "https://www.linkedin.com/in/taghimolavi",
+        "https://github.com/tmolavi"
+      ],
+      "structured_facts_detected": 8,
+      "brand_in_title": true,
+      "brand_in_h1": true
+    },
+    "google_breakdown": {
+      "conversational_questions_count": 4,
+      "sample_question_headings": [
+        "How does Google AI Mode evaluate conversational queries?",
+        "What are the primary citation benchmarks in 2026?"
+      ],
+      "has_faq_schema": true,
+      "has_direct_definition_top30": true,
+      "has_concise_snippet_opening": true,
+      "branded_defense_anchor": true
+    },
+    "perplexity_breakdown": {
+      "statistical_claims_count": 6,
+      "outbound_primary_citations_count": 3,
+      "sample_primary_citations": [
+        "https://arxiv.org/abs/2601.00000",
+        "https://stanford.edu/research"
+      ],
+      "quote_blocks_count": 2,
+      "optimal_length_passages_count": 3
+    },
+    "remediation_tips": [
+      "Incorporate conversational question-based H2 headings and direct answer definitions in the top 30% of content to capture Google AI Mode queries."
+    ]
+  }
+}
+```
+
+---
+
+## 7. Architecture Overview
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐

@@ -21,6 +21,9 @@ class ExtractionOptions(BaseModel):
     extract_geo: bool = Field(
         default=True, description="Run Generative Engine Optimization analysis"
     )
+    extract_engine_matrix: bool = Field(
+        default=True, description="Run multi-engine shortlist and branded-query defense probe"
+    )
     preferred_adapter: str | None = Field(
         default=None, description="Specific adapter name or auto-route"
     )
@@ -164,6 +167,17 @@ class CitationEvidenceReport(BaseModel):
     remediation_tips: list[str] = Field(default_factory=list)
 
 
+class EngineMatrixReport(BaseModel):
+    chatgpt_score: int = Field(default=0, ge=0, le=100)
+    google_ai_mode_score: int = Field(default=0, ge=0, le=100)
+    perplexity_score: int = Field(default=0, ge=0, le=100)
+    branded_defense_status: str = Field(default="adequate")  # "defended", "adequate", "vulnerable"
+    chatgpt_breakdown: dict[str, Any] = Field(default_factory=dict)
+    google_breakdown: dict[str, Any] = Field(default_factory=dict)
+    perplexity_breakdown: dict[str, Any] = Field(default_factory=dict)
+    remediation_tips: list[str] = Field(default_factory=list)
+
+
 class GEOReport(BaseModel):
     url: str
     primary_brand: str | None = None
@@ -200,6 +214,7 @@ class ExtractionResult(BaseModel):
     schema_gaps: SchemaGapReport | None = None
     healed_schema: str | None = None
     evidence_citability: CitationEvidenceReport | None = None
+    engine_matrix: EngineMatrixReport | None = None
     metadata: ExtractionMetadata
 
 

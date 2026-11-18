@@ -12,6 +12,7 @@ from mwie.core.models import (
     CitationEvidenceReport,
     CrawlRequest,
     CrawlResult,
+    EngineMatrixReport,
     ExtractionOptions,
     ExtractionResult,
     GEOReport,
@@ -117,6 +118,20 @@ async def analyze_citation_evidence(req: ExtractRequest):
         if not res.evidence_citability:
             raise HTTPException(status_code=500, detail="Citation evidence analysis failed to produce report.")
         return res.evidence_citability
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@app.post("/api/v1/multi-engine", response_model=EngineMatrixReport, tags=["Multi-Engine"])
+async def analyze_multi_engine(req: ExtractRequest):
+    try:
+        req.options.extract_engine_matrix = True
+        res = await crawl_engine.extract_single(req.url, req.options)
+        if not res.engine_matrix:
+            raise HTTPException(status_code=500, detail="Multi-engine matrix analysis failed to produce report.")
+        return res.engine_matrix
     except HTTPException:
         raise
     except Exception as e:

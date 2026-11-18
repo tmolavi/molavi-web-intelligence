@@ -8,6 +8,7 @@ from urllib.parse import urlparse
 
 from mwie.core.cache import cache
 from mwie.citations.citation_evidence_probe import CitationEvidenceProbe
+from mwie.engines.multi_engine_probe import MultiEngineProbe
 from mwie.core.models import (
     CrawlRequest,
     CrawlResult,
@@ -97,6 +98,21 @@ class CrawlEngine:
         )
         evidence_citability = citation_probe.analyze()
 
+        # 8. Multi-Engine Shortlist & Branded-Query Defense Probe
+        engine_matrix = None
+        if options.extract_engine_matrix:
+            multi_engine_probe = MultiEngineProbe(
+                raw_html=raw.html,
+                clean_text=clean_text,
+                url=raw.final_url,
+                status_code=raw.status_code,
+                json_ld_schemas=seo_report.json_ld_schemas if seo_report else None,
+                seo_report=seo_report,
+                geo_report=geo_report,
+                evidence_report=evidence_citability,
+            )
+            engine_matrix = multi_engine_probe.analyze()
+
         metadata = ExtractionMetadata(
             adapter_used=raw.adapter_name,
             execution_time_ms=raw.execution_time_ms,
@@ -119,6 +135,7 @@ class CrawlEngine:
             schema_gaps=schema_gaps,
             healed_schema=healed_schema,
             evidence_citability=evidence_citability,
+            engine_matrix=engine_matrix,
             metadata=metadata,
         )
 

@@ -10,10 +10,12 @@ __author__ = "Taqi Molavi"
 __license__ = "Apache-2.0"
 
 from mwie.citations.citation_evidence_probe import CitationEvidenceProbe
+from mwie.engines.multi_engine_probe import MultiEngineProbe
 from mwie.core.models import (
     CitationEvidenceReport,
     CrawlRequest,
     CrawlResult,
+    EngineMatrixReport,
     ExtractionResult,
     GEOReport,
     SEOReport,
@@ -24,8 +26,10 @@ __all__ = [
     "CitationEvidenceReport",
     "CrawlRequest",
     "CrawlResult",
+    "EngineMatrixReport",
     "ExtractionResult",
     "GEOReport",
+    "MultiEngineProbe",
     "SEOReport",
     "__author__",
     "__license__",
