@@ -23,6 +23,8 @@ from mwie.crawler.engine import crawl_engine
 from mwie.crawler.sitemap import SitemapParser
 from mwie.extraction.registry import registry
 from mwie.seo.comparator import PageComparator
+from mwie.api.routes_composio import router as composio_router
+from mwie.db.database import db_manager
 
 app = FastAPI(
     title="Molavi Web Intelligence Engine (MWIE) API",
@@ -39,6 +41,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(composio_router)
+
+
+@app.on_event("startup")
+async def startup_event():
+    await db_manager.init_db()
 
 
 class ExtractRequest(BaseModel):

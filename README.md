@@ -6,7 +6,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](pyproject.toml)
-[![Tests](https://img.shields.io/badge/Tests-23%20Passed-brightgreen)](tests/)
+[![Tests](https://img.shields.io/badge/Tests-39%20Passed-brightgreen)](tests/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-009688.svg)](https://fastapi.tiangolo.com)
 [![MCP](https://img.shields.io/badge/MCP-Native%20Server-purple.svg)](https://modelcontextprotocol.io)
 [![Author](https://img.shields.io/badge/Author-Taqi%20Molavi-orange.svg)](https://molavi.pro)
@@ -327,7 +327,45 @@ curl -X POST http://localhost:8000/api/v1/compare \
 
 ---
 
-## 8. Model Context Protocol (MCP) Integration
+## 8. Composio OAuth & PostgreSQL Telemetry Enrichment
+
+MWIE supports live search and traffic telemetry enrichment via **Composio** OAuth and **PostgreSQL** persistence with strict data privacy isolation.
+
+### Supported OAuth Integrations
+- **Gmail:** Verified lead owner identity and automated audit report delivery.
+- **Google Search Console (GSC):** Verified domain properties, top search queries, clicks, impressions, and CTR.
+- **Google Analytics 4 (GA4):** AI referral traffic telemetry (ChatGPT, Perplexity, Claude, Gemini sessions, AI referral ratio, dark attribution lift).
+
+### Endpoints
+- `POST /api/auth/composio/connect`: Initiates OAuth handshake via Composio for a client email and returns `connection_url`.
+- `GET /api/auth/composio/callback`: Validates connection and extracts verified Gmail profile, GSC analytics, and GA4 telemetry.
+- `POST /api/audit/enriched`: Merges DOM/Schema/MAVI score with live GSC/GA4 deltas and calculates longitudinal drift against previous PostgreSQL records.
+
+### PostgreSQL Privacy Architecture
+Persistence is split across two strictly partitioned tables:
+- **`private_client_audits` (Strictly Private CRM / Longitudinal Store):**
+  - Columns: `id`, `lead_email`, `lead_name`, `composio_entity_id`, `domain`, `gsc_snapshot_json`, `ga4_snapshot_json`, `mavi_score`, `evidence_score`, `created_at`.
+  - Accessible only to authorized backend processes; never exposed to public endpoints.
+- **`anonymized_industry_benchmarks` (Public Benchmark Pool - Zero PII):**
+  - Columns: `id`, `industry_tag`, `mavi_score`, `rp_score`, `cs_score`, `es_score`, `evidence_score`, `ai_referral_ratio`, `bucket_month`, `created_at`.
+  - All emails, client names, domains, URLs, search query terms, and raw traffic volumes are strictly scrubbed before insertion.
+
+### Required Environment Variables
+Set the following environment variables (never commit credentials to source control):
+```bash
+# PostgreSQL Database Connection URL
+export DATABASE_URL="postgresql://user:password@localhost:5432/mwie_db"
+
+# Composio API Key (Discoverable from Composio Dashboard or mcp_config.json)
+export COMPOSIO_API_KEY="ck_live_..."
+
+# Optional: Default redirect URL for Composio OAuth callback
+export COMPOSIO_REDIRECT_URL="https://molavi.pro/tools/web-intelligence"
+```
+
+---
+
+## 9. Model Context Protocol (MCP) Integration
 
 MWIE provides a native Python MCP server exposing 12 tools for autonomous agents:
 
@@ -361,7 +399,7 @@ Add to your `claude_desktop_config.json`:
 
 ---
 
-## 9. Docker Deployment
+## 10. Docker Deployment
 
 Deploy with Docker:
 ```bash
@@ -376,7 +414,7 @@ docker compose up -d
 
 ---
 
-## 10. Security & Responsible Crawling
+## 11. Security & Responsible Crawling
 
 MWIE includes strict built-in security features:
 - **SSRF Protection:** By default, RFC 1918 private networks (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`), localhost (`127.0.0.1`), and loopback addresses are strictly blocked.
@@ -385,7 +423,7 @@ MWIE includes strict built-in security features:
 
 ---
 
-## 11. Empirical Benchmarks & Live Telemetry
+## 12. Empirical Benchmarks & PostgreSQL Telemetry
 
 Empirical measurements on Linux ARM64 (100 iterations per component):
 - **HTML Parsing & Noise Cleaning:** 13.10 ms avg latency (76.4 ops/sec, ~4.7 MB peak RAM)
@@ -393,18 +431,15 @@ Empirical measurements on Linux ARM64 (100 iterations per component):
 - **Technical SEO Analyzer:** 11.25 ms avg latency (88.9 ops/sec, ~2.4 MB peak RAM)
 - **GEO & Entity Graph Engine:** 8.56 ms avg latency (116.8 ops/sec, ~6.4 MB peak RAM)
 
-### Community Benchmark Telemetry
-The free web tool on `molavi.pro` provides an opt-in benchmark contribution mechanism where speed and audit scores are recorded to [`https://molavi.pro/data/benchmark-records.json`](https://molavi.pro/data/benchmark-records.json). You can sync and verify live community runs locally:
-
-```bash
-python3 scripts/sync_benchmarks.py
-```
-
-See [docs/BENCHMARKS.md](docs/BENCHMARKS.md) for full reproducible benchmarks and methodology.
+### Privacy-Preserving Industry Benchmark Pool
+The web tool on `molavi.pro` provides an opt-in benchmark contribution mechanism where audit scores are recorded to the PostgreSQL `anonymized_industry_benchmarks` table with zero PII:
+- Stripped of emails, names, URLs, exact queries, and raw traffic counts.
+- Stores exclusively normalized dimensional scores (`mavi_score`, `rp_score`, `cs_score`, `es_score`, `evidence_score`, `ai_referral_ratio`) tagged by `industry_tag` and `bucket_month`.
+- Allows calculating live percentile distributions and longitudinal drift while maintaining strict privacy boundaries.
 
 ---
 
-## 12. License & Attribution
+## 13. License & Attribution
 
 - Released under the **Apache License 2.0**. See [LICENSE](LICENSE) for terms.
 - Independent clean-room architecture developed by **Taqi Molavi**.
@@ -412,7 +447,7 @@ See [docs/BENCHMARKS.md](docs/BENCHMARKS.md) for full reproducible benchmarks an
 
 ---
 
-## 13. Author & Ecosystem
+## 14. Author & Ecosystem
 
 **Author:** Taqi Molavi  
 **Website:** [https://molavi.pro](https://molavi.pro)  
