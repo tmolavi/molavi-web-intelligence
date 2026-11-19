@@ -17,6 +17,8 @@ from mwie.mcp.server import (
     extract_structured_data,
     get_extraction_metadata,
     get_job_status,
+    probe_citation_evidence,
+    probe_multi_engine_ai,
 )
 from mwie.parsing.html_parser import HTMLParser
 from mwie.seo.analyzer import SEOAnalyzer
@@ -114,3 +116,16 @@ async def test_mcp_crawl_tools(mock_extract, sample_result):
     batch = json.loads(batch_str)
     assert len(batch) == 1
     assert batch[0]["status"] == "success"
+
+    # 9. probe_citation_evidence
+    citation_str = await probe_citation_evidence("https://molavi.pro/mwie")
+    citation = json.loads(citation_str)
+    assert "evidence_citability_score" in citation
+    assert "expert_quotes_count" in citation
+
+    # 10. probe_multi_engine_ai
+    multi_engine_str = await probe_multi_engine_ai("https://molavi.pro/mwie")
+    multi_engine = json.loads(multi_engine_str)
+    assert "chatgpt_score" in multi_engine
+    assert "google_ai_mode_score" in multi_engine
+    assert "perplexity_score" in multi_engine

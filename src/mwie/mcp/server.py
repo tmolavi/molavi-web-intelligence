@@ -9,10 +9,12 @@ import json
 from mcp.server.mcpserver import MCPServer
 
 from mwie import __version__
+from mwie.citations.citation_evidence_probe import CitationEvidenceProbe
 from mwie.core.cache import cache
 from mwie.core.models import CrawlRequest, ExtractionOptions
 from mwie.crawler.engine import crawl_engine
 from mwie.crawler.sitemap import SitemapParser
+from mwie.engines.multi_engine_probe import MultiEngineProbe
 from mwie.extraction.registry import registry
 from mwie.seo.comparator import PageComparator
 
@@ -169,6 +171,34 @@ async def batch_process_urls(urls: list[str], render_js: bool = False) -> str:
                 }
             )
     return json.dumps(summary, indent=2)
+
+
+@mcp.tool()
+async def probe_citation_evidence(url: str, render_js: bool = False) -> str:
+    """Analyze quotation density, verifiable statistical claims, outbound academic research, and commercial offer transparency."""
+    options = ExtractionOptions(render_js=render_js, extract_seo=True, extract_geo=True)
+    res = await crawl_engine.extract_single(url, options)
+    probe = CitationEvidenceProbe(
+        raw_html=res.clean_html,
+        clean_text=res.clean_text,
+        url=res.final_url or url,
+    )
+    report = probe.analyze()
+    return report.model_dump_json(indent=2)
+
+
+@mcp.tool()
+async def probe_multi_engine_ai(url: str, render_js: bool = False) -> str:
+    """Evaluate multi-engine shortlist readiness across ChatGPT, Google AI Mode, and Perplexity with branded defense posture."""
+    options = ExtractionOptions(render_js=render_js, extract_seo=True, extract_geo=True)
+    res = await crawl_engine.extract_single(url, options)
+    probe = MultiEngineProbe(
+        raw_html=res.clean_html,
+        clean_text=res.clean_text,
+        url=res.final_url or url,
+    )
+    report = probe.analyze()
+    return report.model_dump_json(indent=2)
 
 
 @mcp.tool()
