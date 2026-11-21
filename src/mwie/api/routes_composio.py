@@ -18,6 +18,7 @@ from mwie.crawler.engine import crawl_engine
 from mwie.core.models import ExtractionOptions
 from mwie.db.database import db_manager
 from mwie.integrations.composio_service import composio_service
+from mwie.telemetry_correlator import telemetry_correlator
 
 router = APIRouter(prefix="/api", tags=["Composio & Enriched Audits"])
 
@@ -179,20 +180,28 @@ async def enriched_audit(req: EnrichedAuditRequest):
         lead_email = req.lead_email or f"client@{domain}"
         lead_name = req.lead_name or "Verified Owner"
 
-    # Extract key GSC / GA4 deltas
-    branded_clicks = gsc_snapshot.get("branded_clicks", 0)
-    nonbranded_clicks = gsc_snapshot.get("nonbranded_clicks", 0)
-    total_clicks = gsc_snapshot.get("total_clicks", branded_clicks + nonbranded_clicks)
-    average_ctr = gsc_snapshot.get("average_ctr", 0.0)
-
-    ai_referral_sessions = ga4_snapshot.get("ai_referral_sessions", 0)
-    total_sessions = ga4_snapshot.get("total_sessions", 1)
-    ai_referral_ratio = ga4_snapshot.get(
-        "ai_referral_ratio",
-        round(ai_referral_sessions / total_sessions, 4) if total_sessions > 0 else 0.20,
+    # 4. Telemetry Correlator & Reporting Anomaly Guard
+    telemetry_summary = telemetry_correlator.correlate(
+        mavi_score=mavi_score,
+        evidence_score=float(evidence_score),
+        gsc_snapshot=gsc_snapshot,
+        ga4_snapshot=ga4_snapshot,
+        domain=domain,
     )
 
-    # 4. PostgreSQL Persistence & Drift Tracking (Strict Privacy Partitioning)
+    # Extract key GSC / GA4 deltas
+    total_clicks = telemetry_summary["branded_vs_nonbranded"]["total_clicks"]
+    average_ctr = telemetry_summary["branded_vs_nonbranded"]["average_ctr"]
+    branded_clicks = telemetry_summary["branded_vs_nonbranded"]["branded_clicks"]
+    nonbranded_clicks = telemetry_summary["branded_vs_nonbranded"]["nonbranded_clicks"]
+    branded_click_ratio = telemetry_summary["branded_vs_nonbranded"]["branded_click_ratio"]
+
+    ai_referral_sessions = telemetry_summary["total_ai_referral_sessions"]
+    total_sessions = telemetry_summary["total_sessions"]
+    ai_referral_ratio = telemetry_summary["ai_referral_ratio"]
+    ai_referral_share_pct = telemetry_summary["ai_referral_share_pct"]
+
+    # 5. PostgreSQL Persistence & Drift Tracking (Strict Privacy Partitioning)
     previous_audit = await db_manager.get_previous_client_audit(lead_email, domain)
     drift = db_manager.calculate_drift(
         current_mavi=mavi_score,
@@ -202,19 +211,31 @@ async def enriched_audit(req: EnrichedAuditRequest):
         previous_audit=previous_audit,
     )
 
-    # Save Private Client Audit (NEVER EXPOSED TO PUBLIC)
+    # Save Full Correlated Private Client Audit (NEVER EXPOSED TO PUBLIC)
+    private_gsc = {
+        **gsc_snapshot,
+        "branded_vs_nonbranded": telemetry_summary["branded_vs_nonbranded"],
+        "anomaly_guard": telemetry_summary["anomaly_guard"],
+    }
+    private_ga4 = {
+        **ga4_snapshot,
+        "ai_referral_share_pct": ai_referral_share_pct,
+        "ai_engines_breakdown": telemetry_summary["ai_engines_breakdown"],
+        "correlation_insight": telemetry_summary["correlation_insight"],
+    }
+
     private_record = await db_manager.insert_private_client_audit(
         lead_email=lead_email,
         lead_name=lead_name,
         composio_entity_id=entity_id,
         domain=domain,
-        gsc_snapshot=gsc_snapshot,
-        ga4_snapshot=ga4_snapshot,
+        gsc_snapshot=private_gsc,
+        ga4_snapshot=private_ga4,
         mavi_score=mavi_score,
         evidence_score=float(evidence_score),
     )
 
-    # 5. Sanitize & Insert into Anonymized Benchmark Pool (Zero PII)
+    # 6. Sanitize & Insert into Anonymized Benchmark Pool (Zero PII - Stripped Ratios Only)
     benchmark_payload = {
         "industry_tag": req.industry_tag,
         "mavi_score": mavi_score,
@@ -223,13 +244,12 @@ async def enriched_audit(req: EnrichedAuditRequest):
         "geo_score": geo_score,
         "evidence_score": float(evidence_score),
         "ai_referral_ratio": ai_referral_ratio,
-        "ai_referral_sessions": ai_referral_sessions,
-        "total_sessions": total_sessions,
+        "ai_referral_share_pct": ai_referral_share_pct,
     }
     sanitized_benchmark = db_manager.sanitize_for_benchmark(benchmark_payload, req.industry_tag)
     await db_manager.insert_anonymized_benchmark(sanitized_benchmark)
 
-    # 6. Compute Percentile against Anonymized Pool
+    # 7. Compute Percentile against Anonymized Pool
     percentiles = await db_manager.get_industry_percentiles(mavi_score, req.industry_tag)
 
     return {
@@ -254,17 +274,19 @@ async def enriched_audit(req: EnrichedAuditRequest):
                 "average_ctr": average_ctr,
                 "branded_clicks": branded_clicks,
                 "nonbranded_clicks": nonbranded_clicks,
-                "branded_click_ratio": gsc_snapshot.get("branded_click_ratio", 0.0),
+                "branded_click_ratio": branded_click_ratio,
                 "top_queries": gsc_snapshot.get("top_queries_sample", []),
             },
             "ga4": {
                 "total_sessions": total_sessions,
                 "ai_referral_sessions": ai_referral_sessions,
                 "ai_referral_ratio": ai_referral_ratio,
-                "ai_platforms_breakdown": ga4_snapshot.get("ai_platforms_breakdown", {}),
+                "ai_referral_share_pct": ai_referral_share_pct,
+                "ai_platforms_breakdown": telemetry_summary["ai_engines_breakdown"],
                 "dark_attribution_lift_pct": ga4_snapshot.get("dark_attribution_lift_pct", 28.5),
             },
         },
+        "telemetry_summary": telemetry_summary,
         "longitudinal_drift": drift,
         "industry_benchmark_comparison": {
             "industry_tag": percentiles["industry_tag"],

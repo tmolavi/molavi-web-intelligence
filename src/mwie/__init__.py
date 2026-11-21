@@ -11,6 +11,7 @@ __license__ = "Apache-2.0"
 
 from mwie.citations.citation_evidence_probe import CitationEvidenceProbe
 from mwie.engines.multi_engine_probe import MultiEngineProbe
+from mwie.telemetry_correlator import TelemetryCorrelator, telemetry_correlator
 from mwie.core.models import (
     CitationEvidenceReport,
     CrawlRequest,
@@ -31,6 +32,8 @@ __all__ = [
     "GEOReport",
     "MultiEngineProbe",
     "SEOReport",
+    "TelemetryCorrelator",
+    "telemetry_correlator",
     "__author__",
     "__license__",
     "__version__",

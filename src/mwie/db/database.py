@@ -313,13 +313,16 @@ class DatabaseManager:
         # Compute or sanitize ai_referral_ratio (dimensionless float between 0.0 and 1.0)
         ai_ratio = raw_audit_data.get("ai_referral_ratio")
         if ai_ratio is None:
-            # Check if GA4 data has ai_referral_sessions and total_sessions
-            ai_sessions = float(raw_audit_data.get("ai_referral_sessions", 0))
-            tot_sessions = float(raw_audit_data.get("total_sessions", 0))
-            if tot_sessions > 0:
-                ai_ratio = round(ai_sessions / tot_sessions, 4)
+            if "ai_referral_share_pct" in raw_audit_data:
+                ai_ratio = round(float(raw_audit_data["ai_referral_share_pct"]) / 100.0, 4)
             else:
-                ai_ratio = 0.2000  # Default normalized aggregate ratio
+                # Check if GA4 data has ai_referral_sessions and total_sessions
+                ai_sessions = float(raw_audit_data.get("ai_referral_sessions", 0))
+                tot_sessions = float(raw_audit_data.get("total_sessions", 0))
+                if tot_sessions > 0:
+                    ai_ratio = round(ai_sessions / tot_sessions, 4)
+                else:
+                    ai_ratio = 0.2000  # Default normalized aggregate ratio
         else:
             ai_ratio = round(float(ai_ratio), 4)
 

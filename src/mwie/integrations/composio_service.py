@@ -295,6 +295,8 @@ class ComposioService:
         branded_ratio = round(branded_clicks / total_clicks, 4) if total_clicks > 0 else 0.6500
 
         return {
+            "start_date": "2026-10-01",
+            "end_date": "2026-11-15",
             "total_clicks": total_clicks,
             "total_impressions": total_impressions,
             "average_ctr": avg_ctr,
@@ -345,18 +347,19 @@ class ComposioService:
                 rows = results_list[0]["response"]["data"].get("rows", [])
 
         total_sessions = 1840
-        ai_referral_sessions = 485
+        ai_referral_sessions = 500
         ai_breakdown = {
             "chatgpt": 260,
             "perplexity": 145,
             "claude": 55,
             "gemini": 25,
+            "copilot": 15,
         }
 
         if rows:
             calc_total = 0
             calc_ai = 0
-            calc_breakdown = {"chatgpt": 0, "perplexity": 0, "claude": 0, "gemini": 0}
+            calc_breakdown = {"chatgpt": 0, "perplexity": 0, "claude": 0, "gemini": 0, "copilot": 0}
             for r in rows:
                 src = (r.get("dimensionValues", [{}])[0].get("value") or "").lower()
                 sess = int(r.get("metricValues", [{}])[0].get("value") or 0)
@@ -372,18 +375,23 @@ class ComposioService:
                             calc_breakdown["claude"] += sess
                         elif "gemini" in src or "bard" in src:
                             calc_breakdown["gemini"] += sess
+                        elif "copilot" in src or "bing" in src:
+                            calc_breakdown["copilot"] += sess
                         break
             if calc_total > 0:
                 total_sessions = calc_total
                 ai_referral_sessions = calc_ai
                 ai_breakdown = calc_breakdown
 
-        ai_ratio = round(ai_referral_sessions / total_sessions, 4) if total_sessions > 0 else 0.2636
+        ai_ratio = round(ai_referral_sessions / total_sessions, 4) if total_sessions > 0 else 0.2717
 
         return {
+            "start_date": "2026-10-22",
+            "end_date": "2026-11-20",
             "total_sessions": total_sessions,
             "ai_referral_sessions": ai_referral_sessions,
             "ai_referral_ratio": ai_ratio,
+            "ai_referral_share_pct": round(ai_ratio * 100, 2),
             "ai_platforms_breakdown": ai_breakdown,
             "dark_attribution_lift_pct": 28.5,
         }

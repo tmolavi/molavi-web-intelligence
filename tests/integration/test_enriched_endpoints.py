@@ -73,6 +73,18 @@ async def test_enriched_audit_endpoint():
         assert "branded_clicks" in data["live_telemetry_enrichment"]["gsc"]
         assert "ai_referral_sessions" in data["live_telemetry_enrichment"]["ga4"]
 
+        # Check telemetry summary (correlator + anomaly guard)
+        assert "telemetry_summary" in data
+        summary = data["telemetry_summary"]
+        assert "ai_referral_share_pct" in summary
+        assert "ai_engines_breakdown" in summary
+        assert "chatgpt" in summary["ai_engines_breakdown"]
+        assert "copilot" in summary["ai_engines_breakdown"]
+        assert "branded_vs_nonbranded" in summary
+        assert "anomaly_guard" in summary
+        assert summary["anomaly_guard"]["anomaly_detected"] is True
+        assert "correlation_insight" in summary
+
         # Check drift
         assert "longitudinal_drift" in data
 
